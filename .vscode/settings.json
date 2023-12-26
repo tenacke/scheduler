@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.pi": "racket",
+        "*.s": "arm",
+        "string.h": "c"
+    }
+}

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+make clean > /dev/null 2>&1
+make > /dev/null 2>&1
+for i in {1..7}
+do
+    echo "Running test $i"
+    ./scheduler "cases/def$i.txt" > "cases/myout$i.txt"
+    diff "cases/out$i.txt" "cases/myout$i.txt"
+done
