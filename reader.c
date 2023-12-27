@@ -142,7 +142,7 @@ int ready_queue_compare(void* a, void* b){ // compare processes in ready queue
         return 1;
     // if both processes are platinum or both are not platinum, compare by priority
     if (process_a->priority != process_b->priority)
-        return process_a->priority - process_b->priority;
+        return process_b->priority - process_a->priority;
     // if both processes have the same priority, compare by arrival time
     if (process_a->arrival_time != process_b->arrival_time)
         return process_a->arrival_time - process_b->arrival_time;
