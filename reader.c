@@ -16,8 +16,8 @@ heap_t* wait_queue;
 
 int init_scheduler(char* instructions_file, char* program_file){
     // initialize instructions and processes hash tables
-    ready_queue = init_heap(10, sizeof(process_t), &ready_queue_compare);
-    wait_queue = init_heap(10, sizeof(process_t), &wait_queue_compare);
+    ready_queue = init_heap(10, &ready_queue_compare);
+    wait_queue = init_heap(10, &wait_queue_compare);
     instructions = init_hash(50);
     read_instructions(instructions_file);
     return read_definitions(program_file);

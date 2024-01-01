@@ -32,10 +32,9 @@ int percolate_down(heap_t* heap, int i) {
     return i;
 }
 
-heap_t* init_heap(int table_size, size_t element_size, int (*compare_to)(void*, void*)) {
+heap_t* init_heap(int table_size, int (*compare_to)(void*, void*)) {
     heap_t* heap = malloc(sizeof(heap_t));
     heap->heap = calloc(table_size, sizeof(void*));
-    heap->element_size = element_size;
     heap->heap_size = 0;
     heap->compare_to = compare_to;
     return heap;

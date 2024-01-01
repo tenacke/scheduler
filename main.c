@@ -21,7 +21,6 @@
 #define UPGRADE(x) (x->type += 1)
 #define FREE(x) (free(x->name), free(x))
 #define PRINTF_DIV(x, y) (x % y == 0 ? printf("%d\n", x / y) : printf("%.1f\n", (float) x / y))
-#define IS_NOT_PREEMPTEE(x) (ready_queue_compare(x, seek(ready_queue)) < 0)
 
 extern hash_table_t* instructions;
 extern heap_t* ready_queue;
@@ -48,19 +47,18 @@ int main(int argc, char** argv){
                         promote(last_process, global_time);
                         relocate(ready_queue, last_process);
                     }
-                    // push(ready_queue, last_process);
                 }
-                fprintf(stderr, "Context switch %d\n", global_time);
+                // fprintf(stderr, "Context switch %d\n", global_time);
                 global_time += CONTEXT_SWITCH;
             }
             last_process = process;
             if (IS_PLATINUM(process)) { // no preemption
-                fprintf(stderr, "PLATINUM %s %d\n", process->name, global_time);
+                // fprintf(stderr, "PLATINUM %s %d\n", process->name, global_time);
                 while (process->program != NULL) {
                     global_time += step_program(process);
                 }
             } else { // can be preempted
-                fprintf(stderr, "Execution %s %d\n", process->name, global_time);
+                // fprintf(stderr, "Execution %s %d\n", process->name, global_time);
                 global_time += step_program(process);
                 if (CAN_PROMOTE(process)) { // check for upgrade
                     promote(process, global_time);
@@ -68,7 +66,7 @@ int main(int argc, char** argv){
             }
             update_queue(global_time);
             if (FINISHED(process)) { // when process finished
-                fprintf(stderr, "Finish %s %d\n", process->name, global_time);
+                // fprintf(stderr, "Finish %s %d\n", process->name, global_time);
                 process->finish_time = global_time;
                 total_turnaround_time += TURNAROUND_TIME(process);
                 total_waiting_time += WAITING_TIME(process);
