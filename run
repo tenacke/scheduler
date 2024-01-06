@@ -2,9 +2,9 @@
 
 # make clean > /dev/null 2>&1
 make > /dev/null 2>&1
-for i in {1..7}
+for i in {1..11}
 do
     echo "Running test $i"
-    ./scheduler "cases/def$i.txt" > "cases/myout$i.txt"
+    ./scheduler "cases/def$i.txt" > "cases/myout$i.txt" 2> "logs/mylog$i.txt"
     diff "cases/out$i.txt" "cases/myout$i.txt"
 done

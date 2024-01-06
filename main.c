@@ -41,15 +41,18 @@ int main(int argc, char** argv){
         // take first process in the ready queue
         if (IS_NOT_EMPTY(ready_queue)) {
             process_t* process = (process_t*) poll(ready_queue);
-            if (last_process == NULL || !EQUALS(process, last_process)) { // context switch
+            if (last_process == NULL || !EQUALS(process, last_process)) { // last process is not the same as current process
                 if (last_process != NULL && !FINISHED(last_process)) { // preempted
                     if (CAN_PROMOTE_PREEMPTED(last_process)) { // reset quantum time
                         promote(last_process, global_time);
                         relocate(ready_queue, last_process);
                     }
+                    push(ready_queue, process);
+                    process = (process_t*) poll(ready_queue);
                 }
                 // fprintf(stderr, "Context switch %d\n", global_time);
-                global_time += CONTEXT_SWITCH;
+                if (last_process == NULL || !EQUALS(process, last_process)) // really context switch
+                    global_time += CONTEXT_SWITCH;
             }
             last_process = process;
             if (IS_PLATINUM(process)) { // no preemption
