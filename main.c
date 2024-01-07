@@ -31,7 +31,7 @@ void update_queue(int global_time);
 void promote(process_t* process, int global_time);
 
 int main(int argc, char** argv){
-    int num_processes = init_scheduler("instructions.txt", argv[1]);
+    int num_processes = init_scheduler("instructions.txt", "definition.txt");
     int global_time = 0;
     int total_turnaround_time = 0;
     int total_waiting_time = 0;

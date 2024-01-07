@@ -54,3 +54,4 @@ dkms.conf
 cases/
 logs/
 scheduler
+*.docx
